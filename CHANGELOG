@@ -1,0 +1,11 @@
+Auto refill v0.1
+
+Right now you need to copy both the cookies and your Account ID to get this to work,
+
+I plan on first removing the cookies part by either adding a browser web-view or making you log in into aldi-tank so you don't have to copy the cookies
+
+as for the Account ID is really hard to dynamicly find the data, so this is for the future for now,
+
+another thing I add is the amount of GB you can add up to maximum of 9 instead of 5, I just don't want Aldi to detect this.#
+
+For now this works and it's doing a great job at it, Will work on it maybe next week or tomorrow
