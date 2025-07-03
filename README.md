@@ -27,7 +27,7 @@ if the threshold is lower then it will auto refill you will never have to check 
 You will need to run this script for long time on a server or computer tho,
 
 ```
-python refill.py auto 
+python auto_check
 ```
 
 
