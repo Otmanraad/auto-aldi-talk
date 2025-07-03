@@ -7,9 +7,13 @@ from playwright.sync_api import sync_playwright
 USER_DATA_DIR = Path("./user_data")
 USERDATA_JSON = USER_DATA_DIR / "userdata.json"
 
-USED_LIMIT = 14_680_640  # Threshold in kilobytes
-INTERVAL_SECONDS = 120     # Time between checks
+USED_AMOUNT13GB = 3_145_728
+USED_AMOUNT5GB = 10_485_760
+USED_AMOUNT2GB = 13_631_488 
+USED_AMOUNT1GB = 14_680_640  
 
+INTERVAL_SECONDS = 120     # Time between checks
+ADDED_TIME_SECONDS = 60   # This time will be added when you have too much, to save performance
 
 COMMAND_ON_LOW_USAGE = ["python3", "refill.py", "request"]  # Command to execute
 
@@ -91,22 +95,35 @@ def run_loop():
         offers_json = fetch_offers(contract_id, billing_id)
         used = extract_used_value(offers_json)
 
+        # Default fallback
+        TIMER = INTERVAL_SECONDS  
 
         if used is None:
             print("⚠️ No 'used' value found.")
         else:
             print(f"📊 Current 'used' value: {used}")
-            if used >= USED_LIMIT:
-                print("✅ 'used' is above or equal to threshold. Running command...")
+            if used >= USED_AMOUNT1GB:
+                print("✅ 'used' is above or equal to 1GB. Running command...")
                 try:
                     subprocess.run(COMMAND_ON_LOW_USAGE, check=True)
                 except subprocess.CalledProcessError as e:
                     print(f"❌ Command failed with error: {e}")
+                TIMER = INTERVAL_SECONDS  # Fast check after refill
+            elif used >= USED_AMOUNT2GB:
+                TIMER = ADDED_TIME_SECONDS + INTERVAL_SECONDS
+                print(f"⏱ Setting timer to {TIMER} seconds (2GB+)")
+            elif used >= USED_AMOUNT5GB:
+                TIMER = ADDED_TIME_SECONDS * 3 + INTERVAL_SECONDS
+                print(f"⏱ Setting timer to {TIMER} seconds (5GB+)")
+            elif used >= USED_AMOUNT13GB:
+                TIMER = ADDED_TIME_SECONDS * 6 + INTERVAL_SECONDS
+                print(f"⏱ Setting timer to {TIMER} seconds (13GB+)")
             else:
-                print("⏸ 'used' is below threshold. Doing nothing.")
+                print("⏸ 'used' is below 1GB threshold.")
 
-        print(f"⏱ Waiting {INTERVAL_SECONDS} seconds...\n")
-        time.sleep(INTERVAL_SECONDS)
+        print(f"⏳ Waiting {TIMER} seconds before next check...\n")
+        time.sleep(TIMER)
+
 
 if __name__ == "__main__":
     run_loop()
