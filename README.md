@@ -1,60 +1,64 @@
 # What is this Project
 
-Well I got annoyed that I have to open the App and refill 1GB every single time, so I made this to automate the processes.
+This Project aims to Automaticly Refill 1GB every time it goes below the threshold, Set by ALDI-TALK
 
+I made it After I got annoyed that I have to open the App and refill 1GB every single time, 
+so I automated the processes.
 
-## Getting Started
+## How to Use This project
 
 this opens a chrome site where you have to log in into your account, 
-once logged in the script will fetch some data from aldi-talk
-and Save them in userdata
+once logged in the script will fetch User data from aldi-talk
+and Save them in user_data/
 ```
 python refill.py get
 ```
 
-this will extract contractId, ResouceID, etc from the data pulled from refill get
+this will extract contractId, ResouceID, etc.. from the user data pulled from ```python refill get```
 ```
 python refill.py extract
 ```
 
-This will request one gigabyte if the threshold is lower then 1 GB and will refill the amount you can refill
+This will request 1GB once your userdata is available, if the threshold is higher then 1 GB it will do nothing.
 ```
 python refill.py request.
 ```
-This Will automaticly Check the threshold and if its lower then it will add
-There is a Timer it will check the threshold every 120 sec (it take 160 sec to use 1GB at 50MP,)
-if the threshold is lower then it will auto refill you will never have to check the ALdi talk anymore atleast for me
-You will need to run this script for long time on a server or computer tho,
+
+This is the automatic processes, to use it you need computer that is running 24/7 you can use server for example oracle free Tier,
+all you need is to transfer your user_data to the server and run it from there it will always check for the amount you have
+and then wait a ceritien amount of time before checking again once you how less then the threshold it will run auto_reqeust.py
 
 ```
 python auto_check
 ```
 
 
-## Install Requirements
 
-on Arch(if you are on diffrent system then try to find the packages and install them)
+## Getting Started
+
+on Arch(if you are on diffrent system then install **pip**, **python3**, **git**)
 ```
 sudo pacman -S python python-pip git
 ```
-
-
-## Installing Project
 
 Clone the Project
 ```
 git clone https://gitlab.com/raad.h.othman/auto-aldi-talk
 ```
 
-Create envimorment
+move into the folder
+```
+cd auto-aldi-talk
+```
+
+Create python envimorment
 ```
 python3 -m venv aldi-talk-venv
 ```
 
-Activate the envimorment
-source Path/to/envimorment/aldi-talk/bin/activate
+Activate the envimorment using
 ```
-source aldi-talk/bin/activate
+source aldi-talk-venv/bin/activate
 ```
 
 install python requirements
@@ -68,30 +72,23 @@ playwright install
 ```
 
 
+**Done**
 
 
-If you want to auto run it and never think again you can use Oracle Cloud, free tier, is really good and I got it working
-and I havn#t vistied the website in a long time, 
-just to inform you they change it quit a bit last time i had something working and they changed their API and backend
-so if they change again it will break again
+## Contributers
+
+Me, and ChatGPT. and orginaly it was Deepseek who helped me bit,(it didnt only made thing worse for me) but after ChatGPT4-Plus came out, it was soo good that I ask it about pywebview 
+to try salvage my code instead it just remade the whole project,
+I was using pywebview, and no matter what I did I couldn't get it to work the way I wanted,
+but after Asking it it made me a whole new thing with Playwright, so spaical thanks to ChatGPT4, 50% to 60% was just ChatGPT4 so 
+Thanks alot ChatGPT4.
 
 
-Either way this was mostly AI so I wanna  Thanks ChatGPT, at this point I lost what I made and what ChatGPT made I just give it and 
-it just give me the best code, Playwright was ChatGPT Idea, I used pywebview, and lets just say I cloudn't make it work sadly, then
-I used ChatGPT and boof it fixed everything.....
+## Info
 
+If you want to auto run it and never think again you can use Oracle Cloud, free tier, is really good and I got it working, 
+without any problem on the x86 AMD free model, you can also use other free models as well or use paid one, is your choice
 
+just to inform you, they always change the backend ALID-TALK. so it may break again, so just wait for me to fix it, you can also open a issue
 
-
-
-Feel free to fork and contribute Suggestions, bug reports, are welcome.
-
-
-This project was made with the help of Deepseek and ChatGPT, Hopefully you won't hate me for it.
-I used Deepseek last time and as you may know its trash compered to ChatGPT at this point, 
-To clarify I remade the project and added automation, but it kept breaking so I never published it
-
-
-
-At this Point more then 80% are made by AI, mostly ChatGPT Plus, it got Really Good, 
-This is update cause last time I didnt update the Gitlab repo cause Aldi-Talk Changed alot of stuff, and I had to remake stuff alot of times
+Feel free to fork and contribute Suggestions, bug reports, are welcome, Thanks alot for using my project Don't forget to star.
