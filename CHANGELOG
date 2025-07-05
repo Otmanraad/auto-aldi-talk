@@ -1,12 +1,13 @@
-Auto refill v0.5
+Aldi-Talk Auto refill v1.0
 
-We jumped 5 versions cause I kept remaking it,
+The project is now completed, it can auto check and auto refill, for you
+
+Added Translated Readme For germens
+Updated Auto_check bug fixes, and retries if it fails up to 3 times
+Performance improvement auto_check instead of always checking every 120second, now is a bit more dynamic
 
 
-well now the project is kinda finished
+Thats all, thank you♥️ for using my project hope it helps you.
 
-I still wanna add windows support and UI, and android,
-either way right now it fully works, without the need to do manual things.
 
-I consider this a finished project
-and I'm using it rn, I haven't check the website in a long time only went there to add to my balance some money so it doesn't get canceled
+goals right now is to update the request file, and improve it.
