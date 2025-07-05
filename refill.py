@@ -1,7 +1,7 @@
 import argparse
 import get_data
 import extract_data
-import auto_request
+import request
 
 def main():
     parser = argparse.ArgumentParser(prog="aldi-refill")
@@ -18,9 +18,7 @@ def main():
     elif args.command == "extract":
         extract_data.run()
     elif args.command == "request":
-        auto_request.run()
-    elif args.command == "auto":
-        auto_check.run()
+        request.run()
 
 if __name__ == "__main__":
     main()
