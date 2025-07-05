@@ -73,11 +73,6 @@ async def main(num_requests):
 
 def run():
     NUM_REQUESTS = 1
-    if len(sys.argv) > 1:
-        try:
-            NUM_REQUESTS = int(sys.argv[1])
-        except ValueError:
-            print("Invalid number of requests, using default 1")
 
     print(f"Requesting {NUM_REQUESTS} time(s)")
     asyncio.run(main(NUM_REQUESTS))
