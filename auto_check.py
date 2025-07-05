@@ -10,11 +10,11 @@ USERDATA_JSON = USER_DATA_DIR / "userdata.json"
 USED_AMOUNT13GB = 3_145_728
 USED_AMOUNT5GB = 10_485_760
 USED_AMOUNT2GB = 13_631_488 
-USED_AMOUNT1GB = 14_680_640  
+USED_AMOUNT1GB = 14_984_424
+USED_AMOUNT9MB = 14_680_640  
 
 
-INTERVAL_SECONDS = 120     # Time between checks
-ADDED_TIME_SECONDS = 60   # This time will be added when you have too much, to save performance
+INTERVAL_SECONDS = 80     # Time between checks
 
 COMMAND_ON_LOW_USAGE = ["python3", "refill.py", "request"]  # Command to execute
 
@@ -118,14 +118,17 @@ def run_loop():
                 except subprocess.CalledProcessError as e:
                     print(f"❌ Command failed with error: {e}")
                 TIMER = INTERVAL_SECONDS  # Fast check after refill
+            elif used >= USED_AMOUNT1GB:
+                TIMER = ADDED_TIME_SECONDS * 1
+                print(f"⏱ Setting timer to {TIMER} seconds (1GB+)")
             elif used >= USED_AMOUNT2GB:
-                TIMER = ADDED_TIME_SECONDS + INTERVAL_SECONDS
+                TIMER = INTERVAL_SECONDS * 2
                 print(f"⏱ Setting timer to {TIMER} seconds (2GB+)")
             elif used >= USED_AMOUNT5GB:
-                TIMER = ADDED_TIME_SECONDS * 3 + INTERVAL_SECONDS
+                TIMER = INTERVAL_SECONDS * 8
                 print(f"⏱ Setting timer to {TIMER} seconds (5GB+)")
             elif used >= USED_AMOUNT13GB:
-                TIMER = ADDED_TIME_SECONDS * 6 + INTERVAL_SECONDS
+                TIMER = INTERVAL_SECONDS * 16
                 print(f"⏱ Setting timer to {TIMER} seconds (13GB+)")
             else:
                 print("⏸ 'used' is below 1GB threshold.")
