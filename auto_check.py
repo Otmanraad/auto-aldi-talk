@@ -12,6 +12,7 @@ USED_AMOUNT5GB = 10_485_760
 USED_AMOUNT2GB = 13_631_488 
 USED_AMOUNT1GB = 14_680_640  
 
+
 INTERVAL_SECONDS = 120     # Time between checks
 ADDED_TIME_SECONDS = 60   # This time will be added when you have too much, to save performance
 
@@ -49,7 +50,7 @@ def extract_used_value(offers):
         print(f"❌ Failed to parse 'used' value: {e}")
         return None
 
-def fetch_offers(contract_id, billing_id):
+def fetch_offers(contract_id, billing_id, max_retries=3):
     billing_trimmed = billing_id[2:] if len(billing_id) > 2 else billing_id
     offers_url = (
         f"https://www.alditalk-kundenportal.de/scs/bff/scs-209-selfcare-dashboard-bff/"
@@ -57,31 +58,39 @@ def fetch_offers(contract_id, billing_id):
         f"?warningDays=1&contractId={contract_id}"
     )
 
-    with sync_playwright() as p:
-        browser = p.chromium.launch_persistent_context(
-            user_data_dir=str(USER_DATA_DIR.resolve()),
-            headless=True,
-        )
-        page = browser.new_page()
-        try:
-            print("🔐 Visiting dashboard to initialize session...")
-            page.goto("https://www.alditalk-kundenportal.de/portal/auth/uebersicht/", timeout=60_000)
-            page.wait_for_load_state("networkidle")
+    for attempt in range(1, max_retries + 1):
+        print(f"🌐 Attempt {attempt}/{max_retries} to fetch offers...")
 
-            print(f"🌐 Fetching: {offers_url}")
-            response = page.evaluate(f"""
-                () => fetch("{offers_url}")
-                    .then(res => res.json())
-                    .catch(err => ({{error: err.toString()}}))
-            """)
-#    response is already a dict
-#            If there is an Error unmark these and check the output
-#            offers_file = USER_DATA_DIR / "offers-debug.json"
-#            offers_file.write_text(json.dumps(response, indent=2), encoding="utf-8")
-#
-            return response
-        finally:
-            browser.close()
+        try:
+            with sync_playwright() as p:
+                browser = p.chromium.launch_persistent_context(
+                    user_data_dir=str(USER_DATA_DIR.resolve()),
+                    headless=True,
+                )
+                page = browser.new_page()
+                try:
+                    print("🔐 Visiting dashboard to initialize session...")
+                    page.goto("https://www.alditalk-kundenportal.de/portal/auth/uebersicht/", timeout=40_000)
+                    page.wait_for_load_state("networkidle", timeout=40_000)
+
+                    print(f"🌐 Fetching: {offers_url}")
+                    response = page.evaluate(f"""
+                        () => fetch("{offers_url}")
+                            .then(res => res.json())
+                            .catch(err => ({{error: err.toString()}}))
+                    """)
+                    return response  # ✅ success
+                finally:
+                    browser.close()
+
+        except Exception as e:
+            print(f"⚠️ Attempt {attempt} failed: {e}")
+            if attempt < max_retries:
+                print("🔁 Retrying in 5 seconds...\n")
+                time.sleep(5)
+            else:
+                print("❌ All fetch attempts failed.")
+                return None
 
 def run_loop():
     while True:
