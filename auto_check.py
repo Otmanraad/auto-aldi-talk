@@ -120,7 +120,7 @@ def run_loop():
                     print(f"❌ Command failed with error: {e}")
                 TIMER = INTERVAL_SECONDS  # Fast check after refill
             elif used >= USED_AMOUNT1GB:
-                TIMER = INTERVAL_SECONDS * 1
+                TIMER = INTERVAL_SECONDS * 1.5
                 print(f"⏱ Setting timer to {TIMER} seconds (1GB+)")
             elif used >= USED_AMOUNT2GB:
                 TIMER = INTERVAL_SECONDS * 2
