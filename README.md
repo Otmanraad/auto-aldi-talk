@@ -24,10 +24,9 @@ This will request 1GB once your userdata is available, if the threshold is highe
 python refill.py request.
 ```
 
-This is the automatic processes, to use it you need computer that is running 24/7 you can use server for example oracle free Tier,
-all you need is to transfer your user_data to the server and run it from there it will always check for the amount you have
-and then wait a ceritien amount of time before checking again once you how less then the threshold it will run auto_reqeust.py
-
+This is the automatic processes, to use it you need computer that is running 24/7 you can get server for example oracle free Tier,
+all you need is your user_data folder, transfer to the server and run it from there, 
+it will check the amount you have and if you have less then 1GB then it will request automatically
 ```
 python auto_check
 ```
