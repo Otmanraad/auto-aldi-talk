@@ -10,8 +10,9 @@ USERDATA_JSON = USER_DATA_DIR / "userdata.json"
 USED_AMOUNT13GB = 3_145_728
 USED_AMOUNT5GB = 10_485_760
 USED_AMOUNT2GB = 13_631_488 
-USED_AMOUNT1GB = 14_084_024
+USED_AMOUNT1GB = 14_284_024
 USED_AMOUNT9MB = 14_680_640  
+
 
 
 INTERVAL_SECONDS = 80     # Time between checks
@@ -111,7 +112,7 @@ def run_loop():
             print("⚠️ No 'used' value found.")
         else:
             print(f"📊 Current 'used' value: {used}")
-            if used >= USED_AMOUNT1GB:
+            if used >= USED_AMOUNT9MB:
                 print("✅ 'used' is above or equal to 1GB. Running command...")
                 try:
                     subprocess.run(COMMAND_ON_LOW_USAGE, check=True)
