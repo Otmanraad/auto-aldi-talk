@@ -5,6 +5,7 @@ This Project aims to Automaticly Refill 1GB every time it goes below the thresho
 I made it After I got annoyed that I have to open the App and refill 1GB every single time, 
 so I automated the processes.
 
+If you encounter any problem please feel free to open a issue.
 ## How to Use This project
 
 this opens a chrome site where you have to log in into your account, 
