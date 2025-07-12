@@ -34,7 +34,7 @@ python auto_check
 
 
 
-## Getting Started
+## Install
 
 on Arch(if you are on diffrent system then install **pip**, **python3**, **git**)
 ```
@@ -77,10 +77,11 @@ playwright install
 
 ## Contributers
 
-Me, and ChatGPT. and orginaly it was Deepseek who helped me bit,(it didnt only made thing worse for me) but after ChatGPT4-Plus came out, it was soo good that I ask it about pywebview 
-to try salvage my code instead it just remade the whole project,
+Me, and ChatGPT. and orginaly it was Deepseek who helped me,(it didnt it only made thing worse for me) but after ChatGPT4-Plus came out, it was soo good that I ask it about pywebview 
+to try salvage my code instead it just remade the whole project, and fixed every problem and used a whole diffrent setup with Playwright
+
 I was using pywebview, and no matter what I did I couldn't get it to work the way I wanted,
-but after Asking it it made me a whole new thing with Playwright, so spaical thanks to ChatGPT4, 50% to 60% was just ChatGPT4 so 
+but after Asking it it made me a whole new thing with Playwright, so spaical thanks to ChatGPT4, 50% was just ChatGPT4 so 
 Thanks alot ChatGPT4.
 
 

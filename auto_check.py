@@ -118,7 +118,7 @@ def run_loop():
                     subprocess.run(COMMAND_ON_LOW_USAGE, check=True)
                 except subprocess.CalledProcessError as e:
                     print(f"❌ Command failed with error: {e}")
-                TIMER = INTERVAL_SECONDS  # Fast check after refill
+                TIMER = INTERVAL_SECONDS
             elif used >= USED_AMOUNT1GB:
                 TIMER = INTERVAL_SECONDS * 1.5
                 print(f"⏱ Setting timer to {TIMER} seconds (1GB+)")
