@@ -32,9 +32,19 @@ it will check the amount you have and if you have less then 1GB then it will req
 python auto_check
 ```
 
+New
+You can now use Termux to auto Check and refill without having to use a server,
+
+All you need is to install Termux it availble on the Google Playstore(Android)https://termux.dev/en/
+
+Before You use this make sure to transfer your ```user_data``` folder from you computer, it contains the session cookies
+
+```
+python termux_auto_check.py
+```
 
 
-## Install
+## Install PC
 
 on Arch(if you are on diffrent system then install **pip**, **python3**, **git**)
 ```
@@ -71,6 +81,65 @@ Install Playwright browser
 playwright install
 ```
 
+## Install Android Termux
+
+Please Install it on PC first and use the ```python refill.py get``` to get the ```user_data``` Folder
+
+once created, copy the ```user_data``` folder and move it to android (assume it is in Downloads)
+
+How to move the files to termux
+
+grant termux permission to the system storage.
+```
+termux-setup-storage
+```
+
+do ls (list files to see whats going on)
+```
+ls -a
+```
+
+do ls (list files to see whats going on)
+```
+mv -r storage/downloads/user_data ~/auto-aldi-talk/
+```
+
+then install python and git
+
+```
+pkg install python3 git
+```
+
+Clone the Project
+```
+git clone https://gitlab.com/raad.h.othman/auto-aldi-talk
+```
+
+move into the folder
+```
+cd auto-aldi-talk
+```
+
+Create python envimorment
+```
+python3 -m venv aldi-talk-venv
+```
+
+Activate the envimorment using
+```
+source aldi-talk-venv/bin/activate
+```
+
+install python requirements
+```
+pip install -r android_requirements.txt
+```
+
+Then use Termux it will run in the background and auto check 
+
+```
+python termux_auto_check.py
+```
 
 **Done**
 
