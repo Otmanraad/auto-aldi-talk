@@ -88,6 +88,12 @@ async def main():
         except Exception as e:
             print(f"Error processing data: {e}")
 
+        #Save cookies to cookies.json for autocheck without playwright
+        cookies = await browser.cookies()
+        cookies_file = USER_DATA_DIR / "cookies.json"
+        with open(cookies_file, "w", encoding="utf-8") as f:
+            json.dump(cookies, f, indent=2)
+        print(f"Cookies saved to {cookies_file}")
         await browser.close()
 
 def run():
