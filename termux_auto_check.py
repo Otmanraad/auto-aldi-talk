@@ -1,7 +1,7 @@
 import json
+import requests
 import time
 import subprocess
-import requests
 from pathlib import Path
 
 USER_DATA_DIR = Path("./user_data")
@@ -50,18 +50,17 @@ def extract_used_value(offers):
     except Exception as e:
         print(f"❌ Failed to parse 'used' value: {e}")
         return None
-        
-        
+
+
 def load_cookies():
+    cookies_file = USER_DATA_DIR / "cookies.json"
     try:
-        with open(USERDATA_JSON, encoding="utf-8") as f:
-            data = json.load(f)
-        cookies = data.get("cookies", {})
-        if not cookies:
-            raise ValueError("Cookies missing or empty in userdata.json")
-        return cookies
+        with open(cookies_file, encoding="utf-8") as f:
+            raw_cookies = json.load(f)
+        session_cookies = {cookie["name"]: cookie["value"] for cookie in raw_cookies}
+        return session_cookies
     except Exception as e:
-        print(f"❌ Failed to load cookies from userdata.json: {e}")
+        print(f"❌ Failed to load cookies: {e}")
         return {}
 
 
@@ -91,13 +90,12 @@ def fetch_offers(contract_id, billing_id, max_retries=3):
                 print(f"❌ Server returned status {response.status_code}")
         except Exception as e:
             print(f"⚠️ Attempt {attempt} failed: {e}")
-        
-        if attempt < max_retries:
-            print("🔁 Retrying in 5 seconds...\n")
-            time.sleep(5)
-        else:
-            print("❌ All fetch attempts failed.")
-            return None
+            if attempt < max_retries:
+                print("🔁 Retrying in 5 seconds...\n")
+                time.sleep(5)
+            else:
+                print("❌ All fetch attempts failed.")
+                return None
 
 def run_loop():
     while True:
