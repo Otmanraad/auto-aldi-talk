@@ -81,8 +81,10 @@ Install Playwright browser
 playwright install
 ```
 
-## Install Android Termux
 
+
+## Install Android Termux, The request file does not work right now due to session cookies expire
+## NOT WORKING 
 Please Install it on PC first and use the ```python refill.py get``` to get the ```user_data``` Folder
 
 once created, copy the ```user_data``` folder and move it to android (assume it is in Downloads)
